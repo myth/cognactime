@@ -1,4 +1,11 @@
 {
   "host": "localhost",
-  "port": 3000
+  "port": 3000,
+  "logging": {
+    "file": true,
+    "fileLevel": "debug",
+    "filePath": "./logs/cognactime.log",
+    "console": true,
+    "consoleLevel": "debug"
+  }
 }

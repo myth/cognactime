@@ -4,20 +4,27 @@
   CognacTime is licenced under the MIT licence.
 */
 
-var express = require('express')
-var pkg = require('../package.json')
-var config = require('../config.json')
-var routes = require('../routes/core')
-var ct = express()
+var fs, express, log, pkg, config, routes, ct, logstream, server;
+fs = require('fs')
+express = require('express')
+log = require('./logging')
+pkg = require('../package.json')
+config = require('../config.json')
+routes = require('../routes/core')
+ct = express()
 
 // Load the core routes
+ct.use(require('morgan')('combined', {'stream': log.stream}))
 ct.use('/', routes)
 
-var server = ct.listen(config.port, config.host, function () {
+server = ct.listen(config.port, config.host, function () {
 
   var host = server.address().address
   var port = server.address().port
 
-  console.log("CognacTime v%s running at %s:%s", pkg.version, host, port)
+  log.info("CognacTime v%s running at %s:%s", pkg.version, host, port)
 
+  log.debug("Test")
+  log.error("Test")
+  log.warn("Test")
 })

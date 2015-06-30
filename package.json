@@ -28,6 +28,9 @@
   },
   "homepage": "https://github.com/myth/cognactime#readme",
   "dependencies": {
-    "express": "^4.13.0"
+    "body-parser": "^1.13.1",
+    "express": "^4.13.0",
+    "morgan": "^1.6.0",
+    "winston": "^1.0.1"
   }
 }
