@@ -2,8 +2,10 @@
   "name": "cognactime",
   "version": "0.1.0",
   "description": "Documentaries, documentaries everywhere!",
-  "main": "index.js",
+  "main": "./index",
+  "os": "linux",
   "scripts": {
+    "start": "node ./",
     "test": "echo \"Error: no test specified\" && exit 1"
   },
   "repository": {
@@ -15,10 +17,17 @@
     "Documentaries",
     "Youtube"
   ],
-  "author": "Aleksander Skraastad <aleks@overflow.no> (https://overflow.no/)",
+  "author": {
+    "name": "Aleksander Skraastad",
+    "email": "aleks@overflow.no",
+    "url": "https://overflow.no"
+  },
   "license": "MIT",
   "bugs": {
     "url": "https://github.com/myth/cognactime/issues"
   },
-  "homepage": "https://github.com/myth/cognactime#readme"
+  "homepage": "https://github.com/myth/cognactime#readme",
+  "dependencies": {
+    "express": "^4.13.0"
+  }
 }
