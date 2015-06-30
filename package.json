@@ -1,0 +1,24 @@
+{
+  "name": "cognactime",
+  "version": "0.1.0",
+  "description": "Documentaries, documentaries everywhere!",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/myth/cognactime.git"
+  },
+  "keywords": [
+    "Documentary",
+    "Documentaries",
+    "Youtube"
+  ],
+  "author": "Aleksander Skraastad <aleks@overflow.no> (https://overflow.no/)",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/myth/cognactime/issues"
+  },
+  "homepage": "https://github.com/myth/cognactime#readme"
+}
