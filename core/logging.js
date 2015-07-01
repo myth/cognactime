@@ -42,6 +42,6 @@ var logger = new winston.Logger(logConf)
 module.exports = logger
 module.exports.stream = {
   write: function (msg, enc) {
-    logger.info(msg)
+    logger.info(msg.trim())
   }
 }

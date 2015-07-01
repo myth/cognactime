@@ -41,9 +41,10 @@
     "winston": "^1.0.1"
   },
   "devDependencies": {
+    "browserify": "^10.2.4",
+    "clean-css": "^3.3.5",
     "less": "^2.5.1",
     "nodemon": "^1.3.7",
-    "uglifyjs": "^2.4.10",
-    "browserify": "^10.2.4"
+    "uglifyjs": "^2.4.10"
   }
 }
