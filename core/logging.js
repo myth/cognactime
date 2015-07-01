@@ -17,7 +17,7 @@ var logConf = {
 
 // Helper to create our 'logs' directory if it does not exist
 var ensureExists = function (dir, mask, callback) {
-  if (typeof(mask) == 'function') {
+  if (typeof(mask) === 'function') {
     callback = mask
     mask = 0755
   }
