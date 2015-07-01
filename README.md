@@ -33,6 +33,14 @@ npm run build
 npm run watch
 ```
 
+#### For the really lazy
+
+Just copy and paste into the terminal and start hacking away.
+
+```
+git clone git@github.com:myth/cognactime.git && cd cognactime && make dev
+```
+
 ### Libraries used
 
 See `package.json`.
