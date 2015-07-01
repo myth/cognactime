@@ -13,8 +13,11 @@ config = require('../config.json')
 routes = require('../routes/core')
 ct = express()
 
-// Load the core routes
+// Set logging middleware
 ct.use(require('morgan')('combined', {'stream': log.stream}))
+// Set static
+ct.use('/static', express.static('public'))
+// Sett core routes
 ct.use('/', routes)
 
 server = ct.listen(config.port, config.host, function () {
@@ -24,7 +27,4 @@ server = ct.listen(config.port, config.host, function () {
 
   log.info("CognacTime v%s running at %s:%s", pkg.version, host, port)
 
-  log.debug("Test")
-  log.error("Test")
-  log.warn("Test")
 })
