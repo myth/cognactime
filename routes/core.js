@@ -5,7 +5,6 @@
 */
 
 var express = require('express')
-var logger = require('morgan')
 var bp = require('body-parser')
 var router = express.Router()
 
@@ -13,7 +12,7 @@ var router = express.Router()
 router.use(bp.json({}))
 router.use(bp.urlencoded({extended: false}))
 router.route('/').get(function (req, res, next) {
-  res.render('index', {})
+  res.render('index', {'words': ['snake', 'dog', 'beer']})
 }).post(function (req, res, next) {
   res.send('That does not work here.')
 })

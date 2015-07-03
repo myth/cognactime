@@ -7,11 +7,13 @@
 var fs =            require('fs')
 ,   express =       require('express')
 ,   expresshbs =    require('express-handlebars')
+,   io =            require('socket.io')
 ,   log =           require('./logging')
 ,   pkg =           require('../package.json')
 ,   config =        require('../config.json')
 ,   routes =        require('../routes/core')
 
+// Initialize the express app
 ct = express()
 
 // Set logging middleware
@@ -40,3 +42,7 @@ server = ct.listen(config.port, config.host, function () {
   log.info("CognacTime v%s running at %s:%s", pkg.version, host, port)
 
 })
+
+// Enable socket.io
+io = io(server)
+require('./socket')(io)
