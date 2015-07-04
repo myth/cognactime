@@ -9,7 +9,8 @@ var util = require('./util')
 var client = (function () {
     /* Private fields */
 
-    var host = 'http://localhost:3000'
+    var host =  location.protocol + '//' + location.hostname +
+                (location.port ? ':' + location.port : '')
     var socket;
 
     var testPayload = {'herp': 'derp'}

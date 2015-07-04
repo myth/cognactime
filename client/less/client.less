@@ -4,17 +4,52 @@
     CognacTime is licenced under the MIT licence.
  */
 
+@font-face {
+  font-family: 'Raleway';
+  src: url('/static/fonts/Raleway-ExtraLight.ttf');
+}
+
 @link: green;
 
 html, body {
   margin: 0;
   padding: 0;
   height: 100%;
+  background-color: #090909;
+  color: #f5f5f5;
+}
+
+header {
+  padding-bottom: 15px;
+}
+
+h1,h2,h3,h4,h5,h6 {
+  font-family: 'Raleway';
 }
 
 a {
   text-decoration: none;
 }
-a:hover {
-  color: darken(@link, 10%);
+
+footer {
+
+}
+
+/* Components */
+
+.promo {
+  padding: 15px;
+  margin-top: 30px;
+  margin-bottom: 30px;
+  color: #ccc;
+
+  i {
+    font-size: 96px;
+    line-height: 96px;
+  }
+}
+.promo-caption {
+  font-weight: bold;
+  font-size: 24px;
+  color: #fff;
 }
