@@ -28,6 +28,7 @@ function iowrapper (io) {
 
     socket.on('disconnect', function () {
       log.info('Client disconnected: ' + socket.id)
+      io.emit('stats', { users: io.engine.clientsCount })
     })
   })
 }
