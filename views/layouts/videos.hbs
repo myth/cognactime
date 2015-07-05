@@ -7,29 +7,16 @@
   <link rel="stylesheet" href="https://fonts.googleapis.com/icon?family=Material+Icons">
   <link rel="stylesheet" href="/static/css/cognactime.min.css">
 </head>
-<body>
+<body id="videos">
   <header class="grey darken-4 grey-text text-lighten-1 z-depth-1">
     <nav class="grey darken-4 grey-text text-lighten-1 z-depth-0">
       {{>navbar}}
     </nav>
-    {{>header}}
+    {{>videoactions}}
   </header>
-  <section id="contentwrapper">
-    <main>
-      <div class="container">
-        {{{body}}}
-      </div>
-    </main>
-    <footer class="page-footer brown darken-3">
-      <div class="container">{{>footer}}</div>
-      <div class="footer-copyright brown darken-4">
-        <div class="container">
-          2015 © <a href="https://overflow.no" class="lime-text lighten-2">Overflow</a> (MIT Licence)
-        </div>
-      </div>
-    </footer>
-  </div>
+  <main>{{{body}}}</main>
   <script type="text/javascript" src="https://code.jquery.com/jquery-2.1.4.min.js"></script>
   <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/materialize/0.97.0/js/materialize.min.js"></script>
+  <script type="text/javascript" src="/static/js/cognactime.min.js"></script>
 </body>
 </html>

@@ -5,6 +5,7 @@
 */
 
 var log = require('./logging')
+var util = require('../client/util')
 
 // Start by defining the container object
 function iowrapper (io) {
@@ -15,10 +16,14 @@ function iowrapper (io) {
   io.on('connection', function (socket) {
     log.info('Client connected: ' + socket.id)
 
-    socket.emit('message', { hello: 'world' })
+    socket.emit('stats', { users: io.engine.clientsCount })
 
     socket.on('message', function (data) {
       log.info('Received message: ' + data)
+    })
+
+    socket.on('fetch', function (data) {
+      log.info('Received query: ' + util.repr(data))
     })
 
     socket.on('disconnect', function () {

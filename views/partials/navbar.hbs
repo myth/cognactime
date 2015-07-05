@@ -2,5 +2,15 @@
   <ul>
     <li><a href="/">Home</a></li>
     <li><a href="/videos/">Videos</a></li>
+    {{#if layout}}
+    <li class="right active" id="options-toggle">
+      <a href="#!"><i class="material-icons small">settings</i></a>
+    </li>
+    <li class="right nohighlight">
+      <span id="stats-users-wrapper">
+        <i class="material-icons small right">person</i> <span id="stats-users">0</span>
+      </span>
+    </li>
+    {{/if}}
   </ul>
 </div>

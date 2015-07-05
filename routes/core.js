@@ -11,10 +11,13 @@ var router = express.Router()
 // Base handler
 router.use(bp.json({}))
 router.use(bp.urlencoded({extended: false}))
+
 router.route('/').get(function (req, res, next) {
-  res.render('index', {'words': ['snake', 'dog', 'beer']})
-}).post(function (req, res, next) {
-  res.send('That does not work here.')
+  res.render('index', { title: 'Cognac Time' })
+})
+
+router.route('/videos').get(function (req, res, next) {
+  res.render('videos', { title: 'Documentaries', layout: 'videos' })
 })
 
 module.exports = router
