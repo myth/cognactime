@@ -12,6 +12,7 @@ var fs =            require('fs')
 ,   pkg =           require('../package.json')
 ,   config =        require('../config.json')
 ,   routes =        require('../routes/core')
+,   path =          require('path')
 
 // Initialize the express app
 ct = express()
@@ -27,7 +28,7 @@ ct.engine('hbs', expresshbs({
   defaultLayout: 'main',
   extname: '.hbs'
 }))
-ct.set('views', './views')
+ct.set('views', path.join(__dirname, '../views'))
 ct.set('view engine', 'hbs')
 
 // Set core routes
