@@ -16,7 +16,7 @@ function iowrapper (io) {
   io.on('connection', function (socket) {
     log.info('Client connected: ' + socket.id)
 
-    socket.emit('stats', { users: io.engine.clientsCount })
+    io.emit('stats', { users: io.engine.clientsCount })
 
     socket.on('message', function (data) {
       log.info('Received message: ' + data)
