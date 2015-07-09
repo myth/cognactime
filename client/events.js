@@ -5,6 +5,7 @@
 */
 
 var util = require('./util')
+var gen = require('./generator')
 
 function registerEventHandlers(client) {
 
@@ -17,10 +18,17 @@ function registerEventHandlers(client) {
 
   function onStats(data) {
     if (client.DEBUG) console.log('Received stats update: ' + util.repr(data))
-    
+
     client.updateUserCount(data.users)
   }
   client.registerEventHandler('stats', onStats)
+
+  function onVideo(data) {
+    if (client.DEBUG) console.log('Received video object: ' + util.repr(data))
+
+    gen.createVideoCard(data)
+  }
+  client.registerEventHandler('video', onVideo)
 }
 
 module.exports = registerEventHandlers

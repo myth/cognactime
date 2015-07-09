@@ -60,9 +60,11 @@ var client = (function () {
       })
 
       runTime.on('input', function (e) {
+        e.preventDefault();
         titleRuntime.text('RUNTIME > ' + $(this).val() + 'm')
       })
       runTime.on('change', function (e) {
+        e.preventDefault();
         client.fetch()
       })
 
@@ -104,6 +106,8 @@ var client = (function () {
       },
 
       fetch: function () {
+        results.html('')
+        gen.createRow()
         socket.emit('fetch', getOptions(ACTIVE_FILTER))
       },
 
