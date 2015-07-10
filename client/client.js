@@ -82,6 +82,7 @@ var client = (function () {
       })
     }
 
+    // Fetches the current state of the DOM as a Options object
     var getOptions = function (query) {
       return {
         runtime: runTime.val(),

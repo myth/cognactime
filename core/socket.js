@@ -29,7 +29,7 @@ function iowrapper (io) {
       log.info('Received query: ' + util.repr(data))
 
       youtube(data.query === undefined ? "" : data.query, function (err, res) {
-        if (err) return io.emit('error', err)
+        if (err) return socket.emit('error', err)
 
         // Set up our source and filter streams
         var videoStream = new pre.VideoStream(res)
@@ -45,7 +45,7 @@ function iowrapper (io) {
         contentFilter.on('readable', function () {
           var obj;
           while (null !== (obj = contentFilter.read())) {
-            io.emit('video', obj)
+            socket.emit('video', obj)
           }
         })
 
