@@ -16,7 +16,7 @@ clean:
 	rm -rf ./logs
 	rm -rf ./public/js/cognactime.min.js
 	rm -rf ./public/css/cognactime.min.css
-	rm ./config.json
+	rm -rf ./config.json
 	@make install
 
 prod:
