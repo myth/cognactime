@@ -8,33 +8,13 @@ var log = require('./logging')
 var util = require('../client/util')
 var pre = require('../lib/preprocessor')
 var filter = require('../lib/contentfilter')
+var youtube = require('../lib/sources/youtube')
 
 // Start by defining the container object
 function iowrapper (io) {
 
   this.connections = []
   this.io = io
-
-  var videoMockup = [
-    {
-      image: 'http://www.catsaroundtheglobe.com/wp-content/uploads/africancats2.jpg',
-      title: 'Wild Africa (2014)',
-      runtime: 57,
-      description: "Join Fred Masterson on a safari through the african plains. " +
-                   "The big cats of Africa have never before been filmed in such " +
-                   "a remarkable way, casting light on their quite social beaviour.",
-      category: 'nature'
-    },
-    {
-      image: 'http://static01.nyt.com/images/2013/02/21/arts/onelife1/onelife1-articleLarge.jpg',
-      title: 'The Northern Seals with Marc Hamilton',
-      runtime: 49,
-      description: "Join Marc Hamilton on his adventures in the polar regions. " +
-                   "Witness the remarkable baby seals before they are violently " +
-                   "clubbed to death by teenagers drunk and high on gasoline.",
-      category: 'nature'
-    }
-  ]
 
   io.on('connection', function (socket) {
     log.info('Client connected: ' + socket.id)
@@ -47,14 +27,31 @@ function iowrapper (io) {
 
     socket.on('fetch', function (data) {
       log.info('Received query: ' + util.repr(data))
-      for (var i in videoMockup) {
-        if (videoMockup.hasOwnProperty(i)) {
-          if (data.runtime <= videoMockup[i].runtime &&
-              data.filter === videoMockup[i].category) {
-            socket.emit('video', videoMockup[i])
+
+      youtube(data.query === undefined ? "" : data.query, function (err, res) {
+        if (err) return io.emit('error', err)
+
+        // Set up our source and filter streams
+        var videoStream = new pre.VideoStream(res)
+        var contentFilter = new filter.ContentFilter({
+          filters: {
+            query: data.query,
+            runtime: data.runtime,
+            torrents: data.torrents
           }
-        }
-      }
+        })
+
+        // Set up the WS emit
+        contentFilter.on('readable', function () {
+          var obj;
+          while (null !== (obj = contentFilter.read())) {
+            io.emit('video', obj)
+          }
+        })
+
+        // Start pi(m)pin'
+        videoStream.pipe(contentFilter)
+      })
     })
 
     socket.on('disconnect', function () {

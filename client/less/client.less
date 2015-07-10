@@ -17,6 +17,20 @@ html, body {
   height: 100%;
   background-color: @body-color;
   color: #f5f5f5;
+
+  ::-webkit-scrollbar {
+    width: .5em;
+    height: .5em;
+  }
+  ::-webkit-scrollbar-thumb {
+    background: @scrollbar-foreground;
+  }
+  ::-webkit-scrollbar-track {
+    background: @scrollbar-background;
+  }
+  scrollbar-face-color: @scrollbar-foreground;
+  scrollbar-track-color: @scrollbar-background;
+
 }
 body#videos {
   background-color: @main-color;
@@ -101,6 +115,8 @@ footer {
   border-radius: 4px;
   box-sizing: border-box;
   box-shadow: 0 2px 5px 0 rgba(0,0,0,0.16),0 2px 10px 0 rgba(0,0,0,0.12);
+  margin-bottom: 20px;
+  margin-top: 20px;
 }
 .videocard-image {
   height: 150px;
@@ -150,14 +166,6 @@ footer {
 }
 
 /* Overrides */
-
-// Dunno why this has not been set properly, since default behaviour
-// will render icons with valign top (looks ugly)
-/*.material-icons {
-  font-size: inherit;
-  line-height: inherit;
-  vertical-align: middle;
-}*/
 
 li.active > a {
   color: #cddc39 !important;

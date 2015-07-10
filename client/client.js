@@ -82,11 +82,11 @@ var client = (function () {
       })
     }
 
-    var getOptions = function (filter) {
+    var getOptions = function (query) {
       return {
         runtime: runTime.val(),
         torrents: false,
-        filter: (filter === null || filter === undefined) ? null : filter
+        query: (query === null || query === undefined) ? null : query
       }
     }
 
@@ -107,6 +107,7 @@ var client = (function () {
 
       fetch: function () {
         results.html('')
+        loading.fadeIn(100)
         gen.createRow()
         socket.emit('fetch', getOptions(ACTIVE_FILTER))
       },

@@ -22,8 +22,8 @@ var generator = (function () {
           '<h5>' + data.runtime + ' minutes</h5>' +
           '<p>' + data.description + '</p>' +
           '</div><div class="videocard-action center">' +
-          '<a href="#">Play!</a></div></div></div>'
-      
+          '<a href="' + data.uri + '">Play!</a></div></div></div>'
+
       html = $(html).hide()
       results.append(html)
       html.fadeIn(150)

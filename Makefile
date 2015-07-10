@@ -3,6 +3,7 @@ BIN = node_modules/.bin
 all: install
 
 install: build
+	cp ./example-config.json config.json
 	@echo "[i] Install complete."
 
 test: build
@@ -15,6 +16,7 @@ clean:
 	rm -rf ./logs
 	rm -rf ./public/js/cognactime.min.js
 	rm -rf ./public/css/cognactime.min.css
+	rm ./config.json
 	@make install
 
 prod:

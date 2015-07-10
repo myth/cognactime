@@ -7,6 +7,9 @@
 var util = require('./util')
 var gen = require('./generator')
 
+// Cache the loading selector since we are accessing it often
+var loading = $('#loading')
+
 function registerEventHandlers(client) {
 
   if (client.DEBUG) console.log('Registering event handlers')
@@ -25,10 +28,18 @@ function registerEventHandlers(client) {
 
   function onVideo(data) {
     if (client.DEBUG) console.log('Received video object: ' + util.repr(data))
+    if (loading.is(':visible')) loading.hide()
 
     gen.createVideoCard(data)
   }
   client.registerEventHandler('video', onVideo)
+
+  function onError(data) {
+    if (clientDEBUG) console.log('Receved error: ' + util.repr(data))
+
+    Materialize.toast('An error occurred: ' + data.message, 4000)
+  }
+  client.registerEventHandler('error', onError)
 }
 
 module.exports = registerEventHandlers
