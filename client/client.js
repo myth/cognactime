@@ -4,23 +4,23 @@
   CognacTime is licenced under the MIT licence.
 */
 
-var DEBUG = true
+var DEBUG = false
 
 var util = require('./util')
 var gen = require('./generator')
 
 var client = (function () {
     /* Private fields */
-    var ACTIVE_FILTER;
+    var ACTIVE_FILTER, PRELOAD_READY
 
     var host =  location.protocol + '//' + location.hostname +
                 (location.port ? ':' + location.port : '')
-    var socket;
+    var socket
 
     // Cached selectors
     var options, quickFilters, optionsToggle, searchField, runTime,
     scienceButton, natureButton, historyButton, titleRuntime, userCount,
-    results, loading;
+    results, loading
 
     /* Private methods */
 
@@ -33,6 +33,7 @@ var client = (function () {
       scienceButton = $('#filter-science')
       natureButton = $('#filter-nature')
       historyButton = $('#filter-history')
+      spaceButton = $('#filter-space')
       titleRuntime = $('#title-runtime')
       userCount = $('#stats-users')
       results = $('#results')
@@ -60,11 +61,11 @@ var client = (function () {
       })
 
       runTime.on('input', function (e) {
-        e.preventDefault();
+        e.preventDefault()
         titleRuntime.text('RUNTIME > ' + $(this).val() + 'm')
       })
       runTime.on('change', function (e) {
-        e.preventDefault();
+        e.preventDefault()
         client.fetch()
       })
 
@@ -78,6 +79,17 @@ var client = (function () {
         if (e.keyCode === 13) {
           ACTIVE_FILTER = searchField.val()
           client.fetch()
+        }
+      })
+
+      $(window).on('scroll', function (e) {
+        var offset = $(window).scrollTop()
+        var threshold = $(document).height() - $(window).height() * 2
+        if (!loading.is(':visible') && PRELOAD_READY) {
+          if (offset > threshold) {
+            client.next()
+            PRELOAD_READY = false
+          }
         }
       })
     }
@@ -104,6 +116,8 @@ var client = (function () {
 
         cacheSelectors()
         bindActions()
+
+        PRELOAD_READY = true
       },
 
       fetch: function () {
@@ -113,14 +127,25 @@ var client = (function () {
         socket.emit('fetch', getOptions(ACTIVE_FILTER))
       },
 
+      next: function () {
+        var opts = getOptions(ACTIVE_FILTER)
+        opts.next = true
+        socket.emit('fetch', opts)
+      },
+
       registerEventHandler: function (e, callback) {
         socket.on(e, callback)
+      },
+
+      setPreloadReady: function () {
+        PRELOAD_READY = true
       },
 
       updateUserCount: function (count) {
         userCount.text(count)
       },
 
+      // Client flags
       DEBUG: DEBUG,
     }
 })()

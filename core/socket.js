@@ -22,13 +22,19 @@ function iowrapper (io) {
     io.emit('stats', { users: io.engine.clientsCount })
 
     socket.on('message', function (data) {
-      log.info('Received message: ' + data)
+      log.debug('Received message: ' + data)
     })
 
     socket.on('fetch', function (data) {
-      log.info('Received query: ' + util.repr(data))
+      log.debug('Received query: ' + util.repr(data))
 
-      youtube(data.query === undefined ? "" : data.query, function (err, res) {
+      var opts = {
+        query: data.query === undefined ? "" : data.query,
+        next: data.next === true ? youtube.clientState[socket.id] : false
+      }
+
+      // Make the API request with the current options
+      youtube.youtube(opts, function (err, res) {
         if (err) return socket.emit('error', err)
 
         // Set up our source and filter streams
@@ -46,6 +52,12 @@ function iowrapper (io) {
           var obj;
           while (null !== (obj = contentFilter.read())) {
             socket.emit('video', obj)
+
+            // If the videos in the stream have a different nextPageToken
+            // we need to update the clientState
+            if (youtube.clientState[socket.id] !== obj.meta.youtubeNextPage) {
+              youtube.clientState[socket.id] = obj.meta.youtubeNextPage
+            }
           }
         })
 
@@ -57,6 +69,9 @@ function iowrapper (io) {
     socket.on('disconnect', function () {
       log.info('Client disconnected: ' + socket.id)
       io.emit('stats', { users: io.engine.clientsCount })
+
+      // Remove the nextPageToken from the youtube source client state
+      delete youtube.clientState[socket.id]
     })
   })
 }

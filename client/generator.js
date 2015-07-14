@@ -15,10 +15,10 @@ var generator = (function () {
     createVideoCard: function (data) {
       var html = '<div class="col s12 m4 l3">' +
           '<div class="videocard grey darken-3 grey-text text-lighten-2">' +
-          '<div class="videocard-image">' +
+          '<a href="' + data.uri + '"><div class="videocard-image">' +
           '<img src="' + data.image + '">' +
           '<span class="card-title truncate">' + data.title + '</span>' +
-          '</div><div class="videocard-content">' +
+          '</div></a><div class="videocard-content">' +
           '<h5>' + data.runtime + ' minutes</h5>' +
           '<p>' + data.description + '</p>' +
           '</div><div class="videocard-action center">' +
@@ -26,7 +26,9 @@ var generator = (function () {
 
       html = $(html).hide()
       results.append(html)
-      html.fadeIn(150)
+      html.fadeIn(200)
+
+      return html
     },
 
     createRow: function () {

@@ -31,11 +31,12 @@ function registerEventHandlers(client) {
     if (loading.is(':visible')) loading.hide()
 
     gen.createVideoCard(data)
+    client.setPreloadReady()
   }
   client.registerEventHandler('video', onVideo)
 
   function onError(data) {
-    if (clientDEBUG) console.log('Receved error: ' + util.repr(data))
+    if (client.DEBUG) console.log('Received error: ' + util.repr(data))
 
     Materialize.toast('An error occurred: ' + data.message, 4000)
   }
