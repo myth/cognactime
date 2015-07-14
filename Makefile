@@ -3,14 +3,13 @@ BIN = node_modules/.bin
 all: install
 
 install: build
-	if ! [ -e ./config.json ]
-	then
-		@echo "[i] No previous config file, using example-config..."
-		cp ./example-config.json config.json
-	else
-		@echo "[!] Old configuration file detected, keeping it"
-		cp ./example-config.json config.json.new
-		@echo "[i] New version of config file saved as 'config.json.new'"
+	@if ! [ -e ./config.json ]; then \
+		echo "[i] No previous config file, using example-config..."; \
+		cp ./example-config.json config.json; \
+	else \
+		echo "[!] Existing configuration file detected, keeping it"; \
+		cp ./example-config.json config.json.new; \
+		echo "[i] New version of config file saved as 'config.json.new'"; \
 	fi
 	@echo "[i] Install complete"
 
