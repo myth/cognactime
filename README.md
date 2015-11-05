@@ -1,6 +1,8 @@
 # cognactime
 Documentaries... Moar documentaries...
 
+Work in progress version running on [ify.no](https://ify.no)
+
 ### Requirements
 
 * NodeJS (CognacTime is developed using 0.12.x branch)
